@@ -1,38 +1,39 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
-import UserHeader from './UserHeader';
+import React from "react";
+import { connect } from "react-redux";
+import { fetchPostsandUsers } from "../actions";
+import UserHeader from "./UserHeader";
 
 class PostList extends React.Component {
-    componentDidMount() {
-        this.props.fetchPosts();
-    }
+  componentDidMount() {
+    this.props.fetchPostsandUsers();
+  }
 
-    renderList() {
-        return this.props.posts.map(post => {
-            return (
-                <div className='item' key={post.id}>
-                    <i className='large middle aligned icon user' />
-                    <div className='content'>
-                        <div className="description">
-                            <h2>{post.title}</h2>
-                            <p>{post.body}</p>
-                        </div>
-                        <div><UserHeader id={post.userId}/></div>
-                    </div>
-                </div>
-            )
-        });
-    }
+  renderList() {
+    return this.props.posts.map(post => {
+      return (
+        <div className="item" key={post.id}>
+          <i className="large middle aligned icon user" />
+          <div className="content">
+            <div className="description">
+              <h2>{post.title}</h2>
+              <p>{post.body}</p>
+            </div>
+            <div>
+              <UserHeader userId={post.userId} />
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
 
-    render() {
-        
-    return <div className='ui relaxed divided list'>{this.renderList()}</div>
-    }
+  render() {
+    return <div className="ui relaxed divided list">{this.renderList()}</div>;
+  }
 }
 
-const mapStateToProps = (state) => {
-    return { posts: state.posts };
-}
+const mapStateToProps = state => {
+  return { posts: state.posts };
+};
 
-export default connect(mapStateToProps, { fetchPosts })(PostList);
+export default connect(mapStateToProps, { fetchPostsandUsers })(PostList);
